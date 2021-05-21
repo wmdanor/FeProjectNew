@@ -1,0 +1,41 @@
+﻿*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+a {
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  padding: 0;
+  cursor: pointer;
+  color: inherit;
+  border: none;
+  background: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: inherit;
+  font-weight: inherit;
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+cite, address {
+  font-style: normal;
+}
+
+img {
+  max-width: 100%;
+}
+
+strong {
+  font-weight: bold;
+}
