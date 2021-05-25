@@ -8,6 +8,7 @@ const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const TerserWebpackPlugin = require('terser-webpack-plugin');
 // const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const productsMock = require('./mock/products');
 
 const mode = process.env.NODE_ENV;
 const isDevBuild = mode !== 'production';
@@ -140,6 +141,13 @@ const CONFIG = {
     hot: true,
     watchContentBase: true,
     noInfo: true,
+    proxy: {
+      '/api/products': {
+        bypass: (req, res) => res.send({
+          data: productsMock.products,
+        }),
+      }
+    }
   },
 };
 

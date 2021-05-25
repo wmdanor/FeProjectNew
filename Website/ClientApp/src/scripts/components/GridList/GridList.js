@@ -2,6 +2,7 @@
 import * as React from 'react';
 import SortBar from './SortBar';
 import SearchBar from './SearchBar';
+import Paginator from './Paginator';
 
 const productStyle = {
   padding: '5px',
@@ -31,17 +32,36 @@ class GridList extends React.Component {
   constructor(props) {
     super(props);
 
-    this.initialData = this.props.data;
+    this.initialData = [];
 
     this.state = {
-      data: this.initialData,
+      afterFilter: this.initialData,
+      afterSearch: this.initialData,
+      afterSort: this.initialData,
+      afterPaginate: [],
     };
 
     this.setDataBound = this.setData.bind(this);
+    this.updateDataBound = this.updateData.bind(this);
+    this.setCurrentPageBound = this.setCurrentPage.bind(this);
   }
 
-  updateData(config) {
-    this.setState(config);
+  componentDidMount() {
+    fetch(this.props.dataUrl)
+      .then((res) => res.json())
+      .then((data) => {
+        this.initialData = data.data;
+        this.setState({
+          afterFilter: this.initialData,
+          afterSearch: this.initialData,
+          afterSort: this.initialData,
+          afterPaginate: [],
+        });
+      });
+  }
+
+  updateData(state) {
+    this.setState(state);
   }
 
   setData(data) {
@@ -50,35 +70,58 @@ class GridList extends React.Component {
     });
   }
 
+  setCurrentPage(data) {
+    this.setState({
+      currentPage: data,
+    });
+  }
+
+  createItemsList(items) {
+    if (items.length) {
+      return items.map((item) => <this.props.itemComponent product={item} />);
+    }
+    const style = {
+      gridColumn: '1/5',
+      border: '1px solid black',
+      padding: '10px',
+      margin: '5px',
+    };
+    return <div style={style}>Empty</div>;
+  }
+
   render() {
     const { sortProps, searchProps } = this.props;
+    const s = JSON.stringify(this.state, null, ' ');
 
     return (
       <div>
         <SearchBar
-          initialData={this.initialData}
-          update={this.setDataBound}
+          initialData={this.state.afterFilter}
+          update={this.updateDataBound}
           searchProps={searchProps}
         />
         <SortBar
-          data={this.state.data}
-          update={this.setDataBound}
+          data={this.state.afterSearch}
+          update={this.updateDataBound}
           sortProps={sortProps}
         />
         <div style={gridStyle}>
-          {this.state.data.map((item) => (
-            <this.props.itemComponent product={item} />
-          ))}
+          {this.createItemsList(this.state.afterPaginate)}
         </div>
-        <div>1, 2, 3</div>
-        {JSON.stringify(this.state)}
+        <Paginator
+          update={this.updateDataBound}
+          data={this.state.afterSort}
+          pageSize={2}
+        />
+        <div style={{ whiteSpace: 'pre-wrap' }}>{s}</div>
       </div>
     );
   }
 }
 
 GridList.propTypes = {
-  data: PropTypes.array.isRequired,
+  dataUrl: PropTypes.string.isRequired,
+  // data: PropTypes.array.isRequired,
   sortProps: PropTypes.object.isRequired,
   searchProps: PropTypes.array.isRequired,
   // itemComponent: PropTypes.elementType.isRequired,

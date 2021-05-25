@@ -1,52 +1,62 @@
 ﻿import PropTypes from 'prop-types';
 import * as React from 'react';
+import getHashCode from '../../getHashCode';
 
 class SortBar extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      sortProperty: 'id',
-      sortDirection: 1,
-    };
+    this.hashCode = null;
+
+    this.sortProperty = 'id';
+    this.sortDirection = 1;
   }
 
-  sort(sortProperty, sortDirection) {
+  sort() {
     const { update, data } = this.props;
-    // const { sortProperty, sortDirection } = this.state;
+    const { sortProperty, sortDirection } = this;
 
     const sorted = [...data].sort(
       (a, b) => sortDirection * (a[sortProperty] > b[sortProperty] ? 1 : -1),
     );
-    update(sorted);
+
+    const newHashCode = getHashCode(sorted);
+    if (this.hashCode === newHashCode) {
+      return;
+    }
+    this.hashCode = newHashCode;
+
+    // update(sorted);
+    update({
+      afterSort: sorted,
+    });
   }
 
   setProperty(property) {
-    this.setState({
-      sortProperty: property,
-    });
-
-    this.sort(property, this.state.sortDirection);
+    this.sortProperty = property;
+    this.sort();
   }
 
   setDirection(direction) {
     let newDirection = 0;
     if (direction === 'asc') {
       newDirection = 1;
-      this.setState({
-        sortDirection: 1,
-      });
     } else if (direction === 'desc') {
       newDirection = -1;
     }
 
     if (newDirection !== 0) {
-      this.setState({
-        sortDirection: newDirection,
-      });
-
-      this.sort(this.state.sortProperty, newDirection);
+      this.sortDirection = newDirection;
+      this.sort();
     }
+  }
+
+  componentDidMount() {
+    this.sort();
+  }
+
+  componentDidUpdate() {
+    this.sort();
   }
 
   render() {
