@@ -49,6 +49,7 @@ FilterMenu.propTypes = {
   // data: PropTypes.array.isRequired,
   update: PropTypes.func.isRequired,
   searchProps: PropTypes.array.isRequired,
+  filterConfig: PropTypes.array.isRequired,
 };
 
 export default FilterMenu;
