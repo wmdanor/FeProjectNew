@@ -10,6 +10,7 @@
   "dependencies": {
     "connected-react-router": "^6.9.1",
     "history": "^5.0.0",
+    "immutable": "^4.0.0-rc.12",
     "intl": "^1.2.5",
     "normalize.css": "^8.0.1",
     "prop-types": "^15.7.2",
