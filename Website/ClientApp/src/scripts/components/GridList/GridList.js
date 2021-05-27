@@ -3,30 +3,31 @@ import * as React from 'react';
 import SortBar from './SortBar';
 import SearchBar from './SearchBar';
 import Paginator from './Paginator';
-
-const productStyle = {
-  padding: '5px',
-  border: '1px solid black',
-};
+import Product from './Product';
 
 const gridStyle = {
   display: 'grid',
   gridTemplateColumns: 'repeat(5, 1fr)',
 };
 
-function Product({ product }) {
-  return (
-    <div key={product.id} style={productStyle}>
-      <p>Id - {product.id}</p>
-      <p>Name - {product.name}</p>
-      <p>Price - {product.price}</p>
-    </div>
-  );
-}
-
-Product.propTypes = {
-  product: PropTypes.object.isRequired,
-};
+// const productStyle = {
+//   padding: '5px',
+//   border: '1px solid black',
+// };
+//
+// function Product({ product }) {
+//   return (
+//     <div key={product.id} style={productStyle}>
+//       <p>Id - {product.id}</p>
+//       <p>Name - {product.name}</p>
+//       <p>Price - {product.price}</p>
+//     </div>
+//   );
+// }
+//
+// Product.propTypes = {
+//   product: PropTypes.object.isRequired,
+// };
 
 class GridList extends React.Component {
   constructor(props) {
