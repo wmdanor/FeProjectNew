@@ -1,12 +1,28 @@
 ﻿import { createStore } from 'redux';
-import { Map } from 'immutable';
+import { Map, List } from 'immutable';
 import rootReducers from './RootReducer';
+
+function createImmutableState(object) {
+  const newObject = {};
+  const keys = Object.keys(object);
+  for (let i = 0; i < keys.length; i += 1) {
+    const value = object[keys[i]];
+    if (value instanceof Array) {
+      newObject[keys[i]] = List(value);
+    } else {
+      newObject[keys[i]] = Map(value);
+    }
+  }
+
+  return newObject;
+}
 
 // convert object to string and store in localStorage
 function saveToLocalStorage(state) {
   try {
     const serialisedState = JSON.stringify(state);
     localStorage.setItem('persistantState', serialisedState);
+    // localStorage.setItem('persistantState', undefined);
   } catch (e) {
     console.warn(e);
   }
@@ -19,7 +35,7 @@ function loadFromLocalStorage() {
     const serialisedState = localStorage.getItem('persistantState');
     if (serialisedState === null) return undefined;
     const parsed = JSON.parse(serialisedState);
-    return Map(parsed);
+    return createImmutableState(parsed);
   } catch (e) {
     console.warn(e);
     return undefined;

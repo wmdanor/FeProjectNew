@@ -8,7 +8,7 @@ import { store } from './reducers';
 
 const onclick = (e) => {
   e.preventDefault();
-  console.log(store.getState());
+  console.log(store.getState(), localStorage);
 };
 
 ReactDOM.render(
