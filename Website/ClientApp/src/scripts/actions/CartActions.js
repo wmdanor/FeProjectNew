@@ -27,6 +27,14 @@
     };
   },
 
+  setQuantity(item, quantity) {
+    return {
+      type: 'SET_QUANTITY',
+      item,
+      quantity,
+    };
+  },
+
   clear(item) {
     return {
       type: 'CLEAR',

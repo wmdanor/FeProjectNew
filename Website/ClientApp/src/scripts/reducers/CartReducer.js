@@ -29,7 +29,7 @@ const CartReducer = (state = List(), action) => {
       return state.update(
         state.findIndex((item) => item.product.id === action.item.id),
         (item) => ({
-          product: { ...action.item },
+          product: { ...item.product },
           quantity: item.quantity + 1,
         }),
       );
@@ -37,12 +37,32 @@ const CartReducer = (state = List(), action) => {
       bufferIndex = state.findIndex(
         (item) => item.product.id === action.item.id,
       );
+      if (bufferIndex === -1) {
+        return state;
+      }
       if (state.get(bufferIndex).quantity <= 1) {
         return state.delete(bufferIndex);
       }
       return state.update(bufferIndex, (item) => ({
-        product: { ...action.item },
+        product: { ...item.product },
         quantity: item.quantity - 1,
+      }));
+    case 'SET_QUANTITY':
+      if (action.quantity < 0) {
+        return state;
+      }
+      bufferIndex = state.findIndex(
+        (item) => item.product.id === action.item.id,
+      );
+      if (bufferIndex === -1) {
+        return state;
+      }
+      // if (action.quantity === 0) {
+      //   return state.delete(bufferIndex);
+      // }
+      return state.update(bufferIndex, (item) => ({
+        product: { ...item.product },
+        quantity: action.quantity,
       }));
     case 'CLEAR':
       return List();

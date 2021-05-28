@@ -12,17 +12,13 @@ const productStyle = {
 class Product extends React.Component {
   constructor(props) {
     super(props);
-  }
 
-  addToCartHandler(product) {
-    return (e) => {
+    this.addToCartHandler = (product) => (e) => {
       e.preventDefault();
       this.props.incrementProduct(product);
     };
-  }
 
-  addMoreHandler(product) {
-    return (e) => {
+    this.addMoreHandler = (product) => (e) => {
       e.preventDefault();
       this.props.incrementProduct(product);
     };
