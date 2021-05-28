@@ -8,6 +8,7 @@
     "dev-build": "rimraf ./build && cross-env NODE_ENV=development webpack --progress --stats-children"
   },
   "dependencies": {
+    "classnames": "^2.3.1",
     "connected-react-router": "^6.9.1",
     "history": "^5.0.0",
     "immutable": "^4.0.0-rc.12",
