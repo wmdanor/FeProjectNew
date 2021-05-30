@@ -5,35 +5,26 @@ import { CartPopupActions } from '../../actions';
 import AppCart from '../App/AppCart';
 import './CartPopup.scss';
 
-class CartPopup extends React.Component {
-  constructor(props) {
-    super(props);
+function CartPopup({ isShown, hidePopup }) {
+  const hidePopupHandler = (e) => {
+    e.preventDefault();
+    hidePopup();
+  };
 
-    this.hidePopupHandler = (e) => {
-      e.preventDefault();
-      this.props.hidePopup();
-    };
-  }
+  const shownClass = isShown ? ' shown' : '';
 
-  render() {
-    if (!this.props.isShown) {
-      console.log('no popup')
-      return null;
-    }
-
-    console.log('popup')
-
-    return (
-      <div className="cart-popup-wrapper">
-        <div className="cart-popup">
-          <button type="button" onClick={this.hidePopupHandler}>
+  return (
+    <div className={`cart-popup-wrapper${shownClass}`}>
+      <div className={`cart-popup${shownClass}`}>
+        <div className="cart-popup-header">
+          <button type="button" onClick={hidePopupHandler}>
             Close
           </button>
-          <AppCart />
         </div>
+        <AppCart hidePopup={hidePopup} />
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 CartPopup.propTypes = {

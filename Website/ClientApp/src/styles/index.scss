@@ -1,2 +1,6 @@
 ﻿@import "reset.local";
 @import "font";
+
+.preload * {
+  transition: none;
+}

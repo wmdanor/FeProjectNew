@@ -1,25 +1,40 @@
 ﻿import PropTypes from 'prop-types';
 import * as React from 'react';
+import './CartItem.scss';
 
 function CartItem({ info, quantityChangeHandler, removeHandler }) {
   const { product, quantity } = info;
 
   return (
-    <div>
-      <span>
-        {product.name} - {product.price} *
-        <input
-          type="number"
-          value={quantity}
-          min="0"
-          onChange={quantityChangeHandler(product)}
-        />
-        = {product.price * quantity}
-      </span>
-      <button type="button" onClick={removeHandler(product)}>
-        Remove
-      </button>
-    </div>
+    <li className="cart-item">
+      <div className="cart-item-body">
+        <div className="cart-item-image">
+          <img src={null} alt="Null" />
+        </div>
+        <div className="cart-item-name">{product.name}</div>
+        <button
+          type="button"
+          className="cart-item-remove"
+          onClick={removeHandler(product)}
+        >
+          X
+        </button>
+      </div>
+      <div className="cart-item-footer">
+        <div className="cart-item-counter">
+          <p className="cart-item-counter-price">{product.price} $</p>
+          <i className="cart-item-counter-multiply" />
+          <input
+            className="cart-item-counter-input"
+            type="number"
+            value={quantity}
+            min="0"
+            onChange={quantityChangeHandler(product)}
+          />
+        </div>
+        <div className="cart-item-full-price">{product.price * quantity} $</div>
+      </div>
+    </li>
   );
 }
 

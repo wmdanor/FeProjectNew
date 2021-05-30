@@ -1,7 +1,9 @@
 ﻿import PropTypes from 'prop-types';
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 import Immutable from 'immutable';
 import CartItem from './CartItem';
+import './Cart.scss';
 
 class Cart extends React.Component {
   constructor(props) {
@@ -21,6 +23,11 @@ class Cart extends React.Component {
       const number = parseInt(e.target.value, 10);
       this.props.setProductQuantity(product, Number.isNaN(number) ? 0 : number);
     };
+
+    this.hidePopupHandler = (e) => {
+      e.preventDefault();
+      this.props.hidePopup();
+    };
   }
 
   calculateSum() {
@@ -35,11 +42,15 @@ class Cart extends React.Component {
     const { cartProducts } = this.props;
 
     return (
-      <div>
-        <button type="button" onClick={this.clearCartHandler}>
+      <div className="cart">
+        <button
+          className="cart-clear-button"
+          type="button"
+          onClick={this.clearCartHandler}
+        >
           Clear cart
         </button>
-        <ul>
+        <ul className="cart-list">
           {cartProducts.map((productInfo) => (
             <CartItem
               info={productInfo}
@@ -48,7 +59,32 @@ class Cart extends React.Component {
             />
           ))}
         </ul>
-        <span>Sum - {this.calculateSum()}</span>
+        {/* TODO: Create cart footer styles */}
+        {/* TODO: Create button styles and add button classes to components */}
+        {/* TODO: Create styles for cart popup header */}
+        {/* TODO: Fix animation when page is rendering (e.g. cart popup) */}
+        <div className="cart-footer">
+          <button
+            className="card-footer-continue"
+            type="button"
+            onClick={this.hidePopupHandler}
+          >
+            Continue shopping
+          </button>
+          <div className="cart-receipt">
+            <div className="cart-receipt-sum">
+              <span>{this.calculateSum()}</span>
+              &nbsp;
+              <i className="cart-receipt-currency" />
+            </div>
+            <Link
+              others={{ className: 'cart-receipt-checkout' }}
+              to="/checkout"
+            >
+              Checkout
+            </Link>
+          </div>
+        </div>
       </div>
     );
   }
@@ -59,6 +95,7 @@ Cart.propTypes = {
   setProductQuantity: PropTypes.func.isRequired,
   removeProduct: PropTypes.func.isRequired,
   clearCart: PropTypes.func.isRequired,
+  hidePopup: PropTypes.func.isRequired,
 };
 
 // const mapStateToProps = (state) => ({

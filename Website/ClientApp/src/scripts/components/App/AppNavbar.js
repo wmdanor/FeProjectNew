@@ -10,16 +10,20 @@ import {
 } from '../Navbar';
 import { DropdownItem, DropdownList, DropdownToggle } from '../Dropdown';
 import { CartPopupActions } from '../../actions';
+import { List } from 'immutable';
 
-function AppNavbar({ isShown, showCart, hideCart }) {
+function AppNavbar({ cartProducts, showCart }) {
   const showCartHandler = (e) => {
     e.preventDefault();
     showCart();
   };
 
-  const hideCartHandler = (e) => {
-    e.preventDefault();
-    hideCart();
+  const countProductsInCart = () => {
+    let number = 0;
+    cartProducts.forEach((item) => {
+      number += item.quantity;
+    });
+    return number;
   };
 
   return (
@@ -38,10 +42,7 @@ function AppNavbar({ isShown, showCart, hideCart }) {
       <NavbarGroup align={NavbarGroup.alignModes.end}>
         <NavbarItem>
           <button type="button" onClick={showCartHandler}>
-            Cart
-          </button>
-          <button type="button" onClick={hideCartHandler}>
-            Hide cart
+            Cart {countProductsInCart()}
           </button>
         </NavbarItem>
       </NavbarGroup>
@@ -50,18 +51,16 @@ function AppNavbar({ isShown, showCart, hideCart }) {
 }
 
 AppNavbar.propTypes = {
-  isShown: PropTypes.bool,
+  cartProducts: PropTypes.instanceOf(List),
   showCart: PropTypes.func,
-  hideCart: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
-  isShown: state.cartPopup.get('shown'),
+  cartProducts: state.cart,
 });
 
 const usedActions = {
   showCart: CartPopupActions.show,
-  hideCart: CartPopupActions.hide,
 };
 
 export default connect(mapStateToProps, usedActions)(AppNavbar);

@@ -10,6 +10,7 @@ function AppCart({
   clearCart,
   removeProduct,
   setProductQuantity,
+  hidePopup,
 }) {
   return (
     <Cart
@@ -17,6 +18,7 @@ function AppCart({
       setProductQuantity={setProductQuantity}
       removeProduct={removeProduct}
       clearCart={clearCart}
+      hidePopup={hidePopup}
     />
   );
 }
@@ -26,6 +28,7 @@ AppCart.propTypes = {
   setProductQuantity: PropTypes.func,
   removeProduct: PropTypes.func,
   clearCart: PropTypes.func,
+  hidePopup: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
