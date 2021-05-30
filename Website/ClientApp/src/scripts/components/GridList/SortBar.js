@@ -65,8 +65,10 @@ class SortBar extends React.Component {
     return (
       <div>
         <select onChange={(e) => this.setProperty(e.target.value)}>
-          {Object.keys(sortProps).map((key) => (
-            <option value={key}>{sortProps[key]}</option>
+          {sortProps.map((item) => (
+            <option value={item.property}>
+              {item.text ? item.text : item.property}
+            </option>
           ))}
         </select>
         <select onChange={(e) => this.setDirection(e.target.value)}>
@@ -82,7 +84,12 @@ SortBar.propTypes = {
   // initialData: PropTypes.array.isRequired,
   data: PropTypes.array.isRequired,
   update: PropTypes.func.isRequired,
-  sortProps: PropTypes.object.isRequired,
+  sortProps: PropTypes.arrayOf(
+    PropTypes.shape({
+      property: PropTypes.string.isRequired,
+      text: PropTypes.string,
+    }),
+  ).isRequired,
 };
 
 export default SortBar;

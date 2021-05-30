@@ -1,8 +1,5 @@
 ﻿import PropTypes from 'prop-types';
 import * as React from 'react';
-import Immutable from 'immutable';
-import { connect } from 'react-redux';
-import { CartActions } from '../../actions';
 
 const productStyle = {
   padding: '5px',
@@ -24,15 +21,15 @@ class Product extends React.Component {
     };
   }
 
-  isInCart(product) {
-    const { cartProducts } = this.props;
-    return (
-      cartProducts.findIndex((item) => item.product.id === product.id) !== -1
-    );
-  }
+  // isInCart(product) {
+  //   const { cartProducts } = this.props;
+  //   return (
+  //     cartProducts.findIndex((item) => item.product.id === product.id) !== -1
+  //   );
+  // }
 
   getButton(product) {
-    if (this.isInCart(product)) {
+    if (this.props.isInCart(product)) {
       return (
         <button type="button" onClick={this.addMoreHandler(product)}>
           Add more
@@ -60,17 +57,24 @@ class Product extends React.Component {
 }
 
 Product.propTypes = {
-  product: PropTypes.object.isRequired,
-  cartProducts: PropTypes.instanceOf(Immutable.List),
-  incrementProduct: PropTypes.func,
+  // product: PropTypes.object.isRequired,
+  product: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+  }).isRequired,
+  // cartProducts: PropTypes.instanceOf(Immutable.List),
+  isInCart: PropTypes.func.isRequired,
+  incrementProduct: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  cartProducts: state.cart,
-});
-
-const usedActions = {
-  incrementProduct: CartActions.increase,
-};
-
-export default connect(mapStateToProps, usedActions)(Product);
+// const mapStateToProps = (state) => ({
+//   cartProducts: state.cart,
+// });
+//
+// const usedActions = {
+//   incrementProduct: CartActions.increase,
+// };
+//
+// export default connect(mapStateToProps, usedActions)(Product);
+export default Product;

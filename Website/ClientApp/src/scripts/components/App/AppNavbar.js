@@ -1,4 +1,6 @@
 ﻿import * as React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import {
   Navbar,
   NavbarGroup,
@@ -7,8 +9,19 @@ import {
   NavbarLink,
 } from '../Navbar';
 import { DropdownItem, DropdownList, DropdownToggle } from '../Dropdown';
+import { CartPopupActions } from '../../actions';
 
-function AppNavbar() {
+function AppNavbar({ isShown, showCart, hideCart }) {
+  const showCartHandler = (e) => {
+    e.preventDefault();
+    showCart();
+  };
+
+  const hideCartHandler = (e) => {
+    e.preventDefault();
+    hideCart();
+  };
+
   return (
     <Navbar>
       <NavbarGroup>
@@ -23,10 +36,34 @@ function AppNavbar() {
         </NavbarDropdown>
       </NavbarGroup>
       <NavbarGroup align={NavbarGroup.alignModes.end}>
-        <NavbarItem>Fuck you</NavbarItem>
+        <NavbarItem>
+          <button type="button" onClick={showCartHandler}>
+            Cart
+          </button>
+          <button type="button" onClick={hideCartHandler}>
+            Hide cart
+          </button>
+        </NavbarItem>
       </NavbarGroup>
     </Navbar>
   );
 }
 
-export default AppNavbar;
+AppNavbar.propTypes = {
+  isShown: PropTypes.bool,
+  showCart: PropTypes.func,
+  hideCart: PropTypes.func,
+};
+
+const mapStateToProps = (state) => ({
+  isShown: state.cartPopup.get('shown'),
+});
+
+const usedActions = {
+  showCart: CartPopupActions.show,
+  hideCart: CartPopupActions.hide,
+};
+
+export default connect(mapStateToProps, usedActions)(AppNavbar);
+
+// export default AppNavbar;

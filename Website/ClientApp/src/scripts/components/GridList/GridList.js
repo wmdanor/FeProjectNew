@@ -1,33 +1,17 @@
 ﻿import PropTypes from 'prop-types';
 import * as React from 'react';
+import Immutable from 'immutable';
+import { connect } from 'react-redux';
 import SortBar from './SortBar';
 import SearchBar from './SearchBar';
 import Paginator from './Paginator';
 import Product from './Product';
+import { CartActions } from '../../actions';
 
 const gridStyle = {
   display: 'grid',
   gridTemplateColumns: 'repeat(5, 1fr)',
 };
-
-// const productStyle = {
-//   padding: '5px',
-//   border: '1px solid black',
-// };
-//
-// function Product({ product }) {
-//   return (
-//     <div key={product.id} style={productStyle}>
-//       <p>Id - {product.id}</p>
-//       <p>Name - {product.name}</p>
-//       <p>Price - {product.price}</p>
-//     </div>
-//   );
-// }
-//
-// Product.propTypes = {
-//   product: PropTypes.object.isRequired,
-// };
 
 class GridList extends React.Component {
   constructor(props) {
@@ -45,6 +29,13 @@ class GridList extends React.Component {
     this.setDataBound = this.setData.bind(this);
     this.updateDataBound = this.updateData.bind(this);
     this.setCurrentPageBound = this.setCurrentPage.bind(this);
+
+    this.isInCart = (product) => {
+      const { cartProducts } = this.props;
+      return (
+        cartProducts.findIndex((item) => item.product.id === product.id) !== -1
+      );
+    };
   }
 
   componentDidMount() {
@@ -77,9 +68,31 @@ class GridList extends React.Component {
     });
   }
 
+  // isInCart(product) {
+  //   const { cartProducts } = this.props;
+  //   return (
+  //     cartProducts.findIndex((item) => item.product.id === product.id) !== -1
+  //   );
+  // }
+
   createItemsList(items) {
+    // if (items.length) {
+    //   return items.map((item) => (
+    //     <this.props.itemComponent
+    //       product={item}
+    //       isInCart={this.isInCart}
+    //       incrementProduct={this.props.incrementProduct}
+    //     />
+    //   ));
+    // }
     if (items.length) {
-      return items.map((item) => <this.props.itemComponent product={item} />);
+      return items.map((item) => (
+        <Product
+          product={item}
+          isInCart={this.isInCart}
+          incrementProduct={this.props.incrementProduct}
+        />
+      ));
     }
     const style = {
       gridColumn: '1/5',
@@ -126,6 +139,18 @@ GridList.propTypes = {
   sortProps: PropTypes.object.isRequired,
   searchProps: PropTypes.array.isRequired,
   // itemComponent: PropTypes.elementType.isRequired,
+  cartProducts: PropTypes.instanceOf(Immutable.List).isRequired,
+  incrementProduct: PropTypes.func.isRequired,
 };
 
-export { GridList, Product };
+const mapStateToProps = (state) => ({
+  cartProducts: state.cart,
+});
+
+const usedActions = {
+  incrementProduct: CartActions.increase,
+};
+
+export default connect(mapStateToProps, usedActions)(GridList);
+
+export { GridList };

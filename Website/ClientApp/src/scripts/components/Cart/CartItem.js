@@ -1,47 +1,37 @@
 ﻿import PropTypes from 'prop-types';
 import * as React from 'react';
 
-class CartItem extends React.Component {
-  constructor(props) {
-    super(props);
+function CartItem({ info, quantityChangeHandler, removeHandler }) {
+  const { product, quantity } = info;
 
-    this.state = {
-      quantity: this.props.info.quantity,
-    };
-
-    this.quantityChangeHandler = (product) => (e) => {
-      this.setState({
-        quantity: e.target.value,
-      });
-      this.props.quantityChangeHandler(product)(e);
-    };
-  }
-
-  render() {
-    const { product, quantity } = this.props.info;
-
-    return (
-      <div>
-        <span>
-          {product.name} - {product.price} *
-          <input
-            type="number"
-            value={this.state.quantity}
-            min="0"
-            onChange={this.quantityChangeHandler(product)}
-          />
-          = {product.price * quantity}
-        </span>
-        <button type="button" onClick={this.props.removeHandler(product)}>
-          Remove
-        </button>
-      </div>
-    );
-  }
+  return (
+    <div>
+      <span>
+        {product.name} - {product.price} *
+        <input
+          type="number"
+          value={quantity}
+          min="0"
+          onChange={quantityChangeHandler(product)}
+        />
+        = {product.price * quantity}
+      </span>
+      <button type="button" onClick={removeHandler(product)}>
+        Remove
+      </button>
+    </div>
+  );
 }
 
 CartItem.propTypes = {
-  info: PropTypes.object.isRequired,
+  info: PropTypes.shape({
+    product: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      price: PropTypes.number.isRequired,
+    }).isRequired,
+    quantity: PropTypes.number.isRequired,
+  }).isRequired,
   removeHandler: PropTypes.func.isRequired,
   quantityChangeHandler: PropTypes.func.isRequired,
 };

@@ -1,5 +1,13 @@
 ﻿import PropTypes from 'prop-types';
 import * as React from 'react';
+import getHashCode from '../../getHashCode';
+
+const filterConfig = [
+  {
+    property: 'price',
+    filterType: 1,
+  },
+];
 
 class FilterMenu extends React.Component {
   constructor(props) {
@@ -27,7 +35,16 @@ class FilterMenu extends React.Component {
       return false;
     });
 
+    const newHashCode = getHashCode(filter);
+    if (this.hashCode === newHashCode) {
+      return;
+    }
+    this.hashCode = newHashCode;
+
     update(filter);
+    update({
+      afterFilter: filter,
+    });
   }
 
   render() {

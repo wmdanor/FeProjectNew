@@ -142,11 +142,16 @@ const CONFIG = {
     watchContentBase: true,
     noInfo: true,
     proxy: {
+      // js mock proxy
       '/api/products': {
         bypass: (req, res) => res.send({
           data: productsMock.products,
         }),
-      }
+      },
+      // ASP.NET Core proxy
+      // '/api': {
+      //   target: 'http://localhost:5001/api',
+      // },
     }
   },
 };

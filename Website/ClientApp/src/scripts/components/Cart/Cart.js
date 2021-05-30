@@ -1,8 +1,6 @@
 ﻿import PropTypes from 'prop-types';
 import * as React from 'react';
-import { connect } from 'react-redux';
 import Immutable from 'immutable';
-import { CartActions } from '../../actions';
 import CartItem from './CartItem';
 
 class Cart extends React.Component {
@@ -20,7 +18,8 @@ class Cart extends React.Component {
     };
 
     this.quantityChangeHandler = (product) => (e) => {
-      this.props.setProductQuantity(product, e.target.value);
+      const number = parseInt(e.target.value, 10);
+      this.props.setProductQuantity(product, Number.isNaN(number) ? 0 : number);
     };
   }
 
@@ -56,20 +55,21 @@ class Cart extends React.Component {
 }
 
 Cart.propTypes = {
-  cartProducts: PropTypes.instanceOf(Immutable.List),
-  setProductQuantity: PropTypes.func,
-  removeProduct: PropTypes.func,
-  clearCart: PropTypes.func,
+  cartProducts: PropTypes.instanceOf(Immutable.List).isRequired,
+  setProductQuantity: PropTypes.func.isRequired,
+  removeProduct: PropTypes.func.isRequired,
+  clearCart: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  cartProducts: state.cart,
-});
-
-const usedActions = {
-  setProductQuantity: CartActions.setQuantity,
-  removeProduct: CartActions.removeItem,
-  clearCart: CartActions.clear,
-};
-
-export default connect(mapStateToProps, usedActions)(Cart);
+// const mapStateToProps = (state) => ({
+//   cartProducts: state.cart,
+// });
+//
+// const usedActions = {
+//   setProductQuantity: CartActions.setQuantity,
+//   removeProduct: CartActions.removeItem,
+//   clearCart: CartActions.clear,
+// };
+//
+// export default connect(mapStateToProps, usedActions)(Cart);
+export default Cart;
