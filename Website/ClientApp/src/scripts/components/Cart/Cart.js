@@ -5,6 +5,8 @@ import Immutable from 'immutable';
 import CartItem from './CartItem';
 import './Cart.scss';
 
+// TODO: fix cart overflow
+
 class Cart extends React.Component {
   constructor(props) {
     super(props);
@@ -44,7 +46,7 @@ class Cart extends React.Component {
     return (
       <div className="cart">
         <button
-          className="cart-clear-button"
+          className="button button-red"
           type="button"
           onClick={this.clearCartHandler}
         >
@@ -59,13 +61,9 @@ class Cart extends React.Component {
             />
           ))}
         </ul>
-        {/* TODO: Create cart footer styles */}
-        {/* TODO: Create button styles and add button classes to components */}
-        {/* TODO: Create styles for cart popup header */}
-        {/* TODO: Fix animation when page is rendering (e.g. cart popup) */}
         <div className="cart-footer">
           <button
-            className="card-footer-continue"
+            className="button button-gray cart-footer-continue"
             type="button"
             onClick={this.hidePopupHandler}
           >
@@ -78,7 +76,7 @@ class Cart extends React.Component {
               <i className="cart-receipt-currency" />
             </div>
             <Link
-              others={{ className: 'cart-receipt-checkout' }}
+              className="button button-green cart-receipt-checkout"
               to="/checkout"
             >
               Checkout

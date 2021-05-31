@@ -3,7 +3,6 @@ import * as ReactRouterDOM from 'react-router-dom';
 import { About, Main, NotFound } from '../Pages';
 import AppHeader from './AppHeader';
 import AppFooter from './AppFooter';
-import AppCart from './AppCart';
 import { CartPopup } from '../Cart';
 
 const Router = ReactRouterDOM.BrowserRouter;
@@ -15,12 +14,13 @@ function App() {
     <Router>
       <CartPopup />
       <AppHeader />
-      <AppCart />
-      <Switch>
-        <Route exact path="/" component={Main} />
-        <Route path="/about" component={About} />
-        <Route component={NotFound} />
-      </Switch>
+      <div className="container">
+        <Switch>
+          <Route exact path="/" component={Main} />
+          <Route path="/about" component={About} />
+          <Route component={NotFound} />
+        </Switch>
+      </div>
       <AppFooter />
     </Router>
   );

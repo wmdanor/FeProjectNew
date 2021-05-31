@@ -68,23 +68,7 @@ class GridList extends React.Component {
     });
   }
 
-  // isInCart(product) {
-  //   const { cartProducts } = this.props;
-  //   return (
-  //     cartProducts.findIndex((item) => item.product.id === product.id) !== -1
-  //   );
-  // }
-
   createItemsList(items) {
-    // if (items.length) {
-    //   return items.map((item) => (
-    //     <this.props.itemComponent
-    //       product={item}
-    //       isInCart={this.isInCart}
-    //       incrementProduct={this.props.incrementProduct}
-    //     />
-    //   ));
-    // }
     if (items.length) {
       return items.map((item) => (
         <Product

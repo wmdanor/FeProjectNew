@@ -2,7 +2,11 @@
 import * as React from 'react';
 
 function Navbar(props) {
-  return <nav className="navbar">{props.children}</nav>;
+  return (
+    <nav className="navbar">
+      <div className="container navbar-inner">{props.children}</div>
+    </nav>
+  );
 }
 
 Navbar.propTypes = {

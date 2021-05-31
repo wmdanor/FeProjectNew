@@ -5,26 +5,51 @@ import { CartPopupActions } from '../../actions';
 import AppCart from '../App/AppCart';
 import './CartPopup.scss';
 
-function CartPopup({ isShown, hidePopup }) {
-  const hidePopupHandler = (e) => {
-    e.preventDefault();
-    hidePopup();
-  };
+class CartPopup extends React.Component {
+  constructor(props) {
+    super(props);
 
-  const shownClass = isShown ? ' shown' : '';
+    this.hidePopupHandler = (e) => {
+      e.preventDefault();
+      this.props.hidePopup();
+    };
 
-  return (
-    <div className={`cart-popup-wrapper${shownClass}`}>
-      <div className={`cart-popup${shownClass}`}>
-        <div className="cart-popup-header">
-          <button type="button" onClick={hidePopupHandler}>
-            Close
-          </button>
+    this.wrapperRef = React.createRef();
+
+    this.handleClickOutside = (e) => {
+      if (this.wrapperRef && !this.wrapperRef.current.contains(e.target)) {
+        this.props.hidePopup();
+      }
+    };
+  }
+
+  componentDidMount() {
+    document.addEventListener('mousedown', this.handleClickOutside);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('mousedown', this.handleClickOutside);
+  }
+
+  render() {
+    const { isShown, hidePopup } = this.props;
+
+    const shownClass = isShown ? ' shown' : '';
+
+    return (
+      <div className={`cart-popup-wrapper${shownClass}`}>
+        <div className="cart-popup" ref={this.wrapperRef}>
+          <div className="cart-popup-header">
+            <h2>Shopping cart</h2>
+            <button type="button" onClick={this.hidePopupHandler}>
+              &times;
+            </button>
+          </div>
+          <AppCart hidePopup={hidePopup} />
         </div>
-        <AppCart hidePopup={hidePopup} />
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 CartPopup.propTypes = {

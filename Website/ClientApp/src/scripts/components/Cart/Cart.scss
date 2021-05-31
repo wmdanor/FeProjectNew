@@ -1,6 +1,7 @@
 ﻿.cart {
   display: flex;
   flex-direction: column;
+  padding: 26px;
 
   &-clear-button {
     display: flex;
@@ -25,5 +26,40 @@
     flex-direction: column;
     padding: 16px;
     margin: 0;
+  }
+
+  &-footer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &-receipt {
+    padding: 16px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #00a046;
+    background: rgba(0, 160, 70, 0.1);
+    border-radius: 4px;
+
+    &-sum {
+      font-size: 36px;
+    }
+
+    &-currency {
+      &::after {
+        content: '$';
+        font-size: 20px;
+        font-style: normal;
+      }
+    }
+
+    &-checkout {
+      margin-left: 24px;
+      font-size: 16px;
+    }
   }
 }
