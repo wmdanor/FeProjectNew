@@ -13,6 +13,8 @@ const gridStyle = {
   gridTemplateColumns: 'repeat(5, 1fr)',
 };
 
+// TODO: grid list styles
+
 class GridList extends React.Component {
   constructor(props) {
     super(props);

@@ -1,7 +1,7 @@
 ﻿import PropTypes from 'prop-types';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import Immutable from 'immutable';
+import Immutable, {is} from 'immutable';
 import CartItem from './CartItem';
 import './Cart.scss';
 
@@ -42,6 +42,7 @@ class Cart extends React.Component {
 
   render() {
     const { cartProducts } = this.props;
+    const isEmpty = cartProducts.size === 0;
 
     return (
       <div className="cart">
@@ -49,6 +50,7 @@ class Cart extends React.Component {
           className="button button-red"
           type="button"
           onClick={this.clearCartHandler}
+          disabled={isEmpty}
         >
           Clear cart
         </button>
@@ -78,6 +80,7 @@ class Cart extends React.Component {
             <Link
               className="button button-green cart-receipt-checkout"
               to="/checkout"
+              disabled={isEmpty}
             >
               Checkout
             </Link>
