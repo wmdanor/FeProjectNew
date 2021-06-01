@@ -22,9 +22,9 @@ class GridList extends React.Component {
       afterPaginate: [],
     };
 
-    this.setDataBound = this.setData.bind(this);
-    this.updateDataBound = this.updateData.bind(this);
-    this.setCurrentPageBound = this.setCurrentPage.bind(this);
+    this.updateData = (state) => {
+      this.setState(state);
+    };
 
     this.isInCart = (product) => {
       const { cartProducts } = this.props;
@@ -48,22 +48,6 @@ class GridList extends React.Component {
       });
   }
 
-  updateData(state) {
-    this.setState(state);
-  }
-
-  setData(data) {
-    this.setState({
-      data,
-    });
-  }
-
-  setCurrentPage(data) {
-    this.setState({
-      currentPage: data,
-    });
-  }
-
   createItemsList(items) {
     if (items.length) {
       return items.map((item) => (
@@ -81,19 +65,18 @@ class GridList extends React.Component {
 
   render() {
     const { sortProps, searchProps } = this.props;
-    const s = JSON.stringify(this.state, null, ' ');
 
     return (
       <div>
         <div className="gridlist-bar">
           <SearchBar
             initialData={this.state.afterFilter}
-            update={this.updateDataBound}
+            update={this.updateData}
             searchProps={searchProps}
           />
           <SortBar
             data={this.state.afterSearch}
-            update={this.updateDataBound}
+            update={this.updateData}
             sortProps={sortProps}
           />
         </div>
@@ -101,11 +84,10 @@ class GridList extends React.Component {
           {this.createItemsList(this.state.afterPaginate)}
         </ul>
         <Paginator
-          update={this.updateDataBound}
+          update={this.updateData}
           data={this.state.afterSort}
           pageSize={4}
         />
-        <div style={{ whiteSpace: 'pre-wrap' }}>{s}</div>
       </div>
     );
   }
@@ -113,22 +95,10 @@ class GridList extends React.Component {
 
 GridList.propTypes = {
   dataUrl: PropTypes.string.isRequired,
-  // data: PropTypes.array.isRequired,
   sortProps: PropTypes.object.isRequired,
   searchProps: PropTypes.array.isRequired,
-  // itemComponent: PropTypes.elementType.isRequired,
   cartProducts: PropTypes.instanceOf(Immutable.List).isRequired,
   incrementProduct: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  cartProducts: state.cart,
-});
-
-const usedActions = {
-  incrementProduct: CartActions.increase,
-};
-
-export default connect(mapStateToProps, usedActions)(GridList);
-
-export { GridList };
+export default GridList;

@@ -3,7 +3,7 @@ import * as React from 'react';
 import Immutable from 'immutable';
 import { connect } from 'react-redux';
 import { CartActions } from '../../actions';
-import { GridList } from '../GridList/GridList';
+import { GridList } from '../GridList';
 
 function AppGridList({
   cartProducts,

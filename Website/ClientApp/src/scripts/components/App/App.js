@@ -10,6 +10,10 @@ const Router = ReactRouterDOM.BrowserRouter;
 const { Route } = ReactRouterDOM;
 const { Switch } = ReactRouterDOM;
 
+// TODO: contacts page
+// TODO: footer
+//
+
 class App extends React.Component {
   constructor(props) {
     super(props);
