@@ -28,12 +28,14 @@ const searchProps = ['name'];
 
 function Main() {
   return (
-    <AppGridList
-      dataUrl="/api/products"
-      sortProps={sortProps}
-      searchProps={searchProps}
-      itemComponent={Product}
-    />
+    <div className="container">
+      <AppGridList
+        dataUrl="/api/products"
+        sortProps={sortProps}
+        searchProps={searchProps}
+        itemComponent={Product}
+      />
+    </div>
   );
 }
 

@@ -7,6 +7,7 @@ import SearchBar from './SearchBar';
 import Paginator from './Paginator';
 import Product from './Product';
 import { CartActions } from '../../actions';
+import './GridList.scss';
 
 const gridStyle = {
   display: 'grid',
@@ -73,11 +74,13 @@ class GridList extends React.Component {
   createItemsList(items) {
     if (items.length) {
       return items.map((item) => (
-        <Product
-          product={item}
-          isInCart={this.isInCart}
-          incrementProduct={this.props.incrementProduct}
-        />
+        <li className="gridlist-item">
+          <Product
+            product={item}
+            isInCart={this.isInCart}
+            incrementProduct={this.props.incrementProduct}
+          />
+        </li>
       ));
     }
     const style = {
@@ -86,7 +89,7 @@ class GridList extends React.Component {
       padding: '10px',
       margin: '5px',
     };
-    return <div style={style}>Empty</div>;
+    return <li className="gridlist-item-empty">Empty</li>;
   }
 
   render() {
@@ -95,23 +98,25 @@ class GridList extends React.Component {
 
     return (
       <div>
-        <SearchBar
-          initialData={this.state.afterFilter}
-          update={this.updateDataBound}
-          searchProps={searchProps}
-        />
-        <SortBar
-          data={this.state.afterSearch}
-          update={this.updateDataBound}
-          sortProps={sortProps}
-        />
-        <div style={gridStyle}>
-          {this.createItemsList(this.state.afterPaginate)}
+        <div className="gridlist-bar">
+          <SearchBar
+            initialData={this.state.afterFilter}
+            update={this.updateDataBound}
+            searchProps={searchProps}
+          />
+          <SortBar
+            data={this.state.afterSearch}
+            update={this.updateDataBound}
+            sortProps={sortProps}
+          />
         </div>
+        <ul className="gridlist-list">
+          {this.createItemsList(this.state.afterPaginate)}
+        </ul>
         <Paginator
           update={this.updateDataBound}
           data={this.state.afterSort}
-          pageSize={2}
+          pageSize={4}
         />
         <div style={{ whiteSpace: 'pre-wrap' }}>{s}</div>
       </div>

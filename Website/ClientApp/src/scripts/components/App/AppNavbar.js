@@ -30,6 +30,7 @@ function AppNavbar({ cartProducts, showCart }) {
     <Navbar>
       <NavbarGroup>
         <NavbarLink to="/">Home</NavbarLink>
+        <NavbarLink to="/contacts">Contacts</NavbarLink>
         <NavbarLink to="/about">About</NavbarLink>
         <NavbarDropdown>
           <DropdownToggle>Dropdown</DropdownToggle>

@@ -1,10 +1,6 @@
 ﻿import PropTypes from 'prop-types';
 import * as React from 'react';
-
-const productStyle = {
-  padding: '5px',
-  border: '1px solid black',
-};
+import './Product.scss';
 
 class Product extends React.Component {
   constructor(props) {
@@ -31,13 +27,21 @@ class Product extends React.Component {
   getButton(product) {
     if (this.props.isInCart(product)) {
       return (
-        <button type="button" onClick={this.addMoreHandler(product)}>
+        <button
+          className="button button-green"
+          type="button"
+          onClick={this.addMoreHandler(product)}
+        >
           Add more
         </button>
       );
     }
     return (
-      <button type="button" onClick={this.addToCartHandler(product)}>
+      <button
+        className="button button-green"
+        type="button"
+        onClick={this.addToCartHandler(product)}
+      >
         Add to cart
       </button>
     );
@@ -46,11 +50,21 @@ class Product extends React.Component {
   render() {
     const { product } = this.props;
     return (
-      <div key={product.id} style={productStyle}>
-        <p>Id - {product.id}</p>
-        <p>Name - {product.name}</p>
-        <p>Price - {product.price}</p>
-        {this.getButton(product)}
+      <div className="product" key={product.id}>
+        <img
+          className="product-image"
+          src={product.imageUrl}
+          alt={product.name}
+        />
+        <h3 className="product-name">{product.name}</h3>
+        <div className="product-prices">
+          <p>
+            <span>{product.price}</span>
+            &nbsp;
+            <i className="product-prices-currency" />
+          </p>
+          {this.getButton(product)}
+        </div>
       </div>
     );
   }
@@ -62,6 +76,7 @@ Product.propTypes = {
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
+    imageUrl: PropTypes.string.isRequired,
   }).isRequired,
   // cartProducts: PropTypes.instanceOf(Immutable.List),
   isInCart: PropTypes.func.isRequired,

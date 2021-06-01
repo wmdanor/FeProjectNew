@@ -1,6 +1,7 @@
 ﻿import PropTypes from 'prop-types';
 import * as React from 'react';
 import getHashCode from '../../getHashCode';
+import './SortBar.scss';
 
 class SortBar extends React.Component {
   constructor(props) {
@@ -63,15 +64,15 @@ class SortBar extends React.Component {
     const { sortProps } = this.props;
 
     return (
-      <div>
-        <select onChange={(e) => this.setProperty(e.target.value)}>
+      <div className="sort-bar">
+        <select className="sort-bar-select" onChange={(e) => this.setProperty(e.target.value)}>
           {sortProps.map((item) => (
             <option value={item.property}>
               {item.text ? item.text : item.property}
             </option>
           ))}
         </select>
-        <select onChange={(e) => this.setDirection(e.target.value)}>
+        <select className="sort-bar-select" onChange={(e) => this.setDirection(e.target.value)}>
           <option value="asc">Ascending</option>
           <option value="desc">Descending</option>
         </select>

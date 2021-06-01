@@ -1,21 +1,7 @@
 ﻿import PropTypes from 'prop-types';
 import * as React from 'react';
 import getHashCode from '../../getHashCode';
-
-const buttonStyle = {
-  padding: '8px',
-  border: '1px solid black',
-  margin: '4px',
-  fontSize: '20px',
-};
-
-const currentStyle = {
-  display: 'inline-block',
-  padding: '8px',
-  border: '1px solid red',
-  margin: '4px',
-  fontSize: '20px',
-};
+import './Paginator.scss';
 
 class Paginator extends React.Component {
   constructor(props) {
@@ -119,16 +105,20 @@ class Paginator extends React.Component {
 
   createPaginationButton(item) {
     return item.i ? (
-      <button
-        style={buttonStyle}
-        type="button"
-        data-page={item.i}
-        onClick={this.goToPageHandler(item.i)}
-      >
-        {item.text}
-      </button>
+      <li>
+        <button
+          className="paginator-item"
+          type="button"
+          data-page={item.i}
+          onClick={this.goToPageHandler(item.i)}
+        >
+          {item.text}
+        </button>
+      </li>
     ) : (
-      <span style={currentStyle}>{item.text}</span>
+      <li>
+        <span className="paginator-item current">{item.text}</span>
+      </li>
     );
   }
 
@@ -137,7 +127,9 @@ class Paginator extends React.Component {
 
     return (
       <nav role="navigation">
-        {pages.map((item) => this.createPaginationButton(item))}
+        <ul className="paginator">
+          {pages.map((item) => this.createPaginationButton(item))}
+        </ul>
       </nav>
     );
   }

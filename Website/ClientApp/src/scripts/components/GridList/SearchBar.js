@@ -1,6 +1,7 @@
 ﻿import PropTypes from 'prop-types';
 import * as React from 'react';
 import getHashCode from '../../getHashCode';
+import './SearchBar.scss';
 
 class SearchBar extends React.Component {
   constructor(props) {
@@ -58,6 +59,7 @@ class SearchBar extends React.Component {
     return (
       <div>
         <input
+          className="search-bar-input"
           type="text"
           value={this.state.query}
           placeholder="Enter search query..."
