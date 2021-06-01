@@ -1,7 +1,6 @@
 ﻿.cart {
   display: flex;
   flex-direction: column;
-  padding: 26px;
 
   &-clear-button {
     display: flex;
@@ -33,6 +32,10 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    position: sticky;
+    bottom: 0;
+    background: white;
+    padding-bottom: 24px;
   }
 
   &-receipt {

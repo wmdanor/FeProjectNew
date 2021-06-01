@@ -6,3 +6,11 @@
 .preload * {
   transition: none;
 }
+
+a[disabled] {
+  pointer-events: none !important;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}

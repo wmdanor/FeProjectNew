@@ -1,17 +1,38 @@
 ﻿.cart-popup {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  width: 960px;
+  height: auto;
+  max-height: 100%;
+  margin: 0 auto;
+  transition: top 0.4s, transform 0.4s;
+  transform: scale(0.4);
+  border: 1px solid black;
+  border-radius: 8px;
+  background: white;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.32);
+
   &-wrapper {
-    z-index: 100;
     position: fixed;
+    z-index: 100;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
     display: flex;
+    flex-direction: column;
+    visibility: hidden;
     align-items: center;
     justify-content: center;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    visibility: hidden;
-    opacity: 0;
-    top: 0;
+    max-height: 100vh;
+    padding: 24px;
     transition: opacity 0.3s, visibility 0.3s;
+    opacity: 0;
+    background: rgba(0, 0, 0, 0.5);
 
     &.shown {
       visibility: visible;
@@ -23,38 +44,34 @@
     }
   }
 
-  position: relative;
-  border: 1px solid black;
-  background: white;
-  transform: scale(0.4);
-  transition: top 0.4s, transform 0.4s;
-  width: 960px;
-
-  border-radius: 8px;
-  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.32);
-
   &-header {
     //padding: 20px 10px 16px 26px;
-    border-bottom: 1px solid #e9e9e9;
     display: flex;
     justify-content: space-between;
+    border-bottom: 1px solid #e9e9e9;
 
     h2 {
-      padding: 16px;
       font-size: 20px;
+      padding: 16px;
     }
 
     button {
       font-size: 36px;
-      transition: color 0.2s;
       height: 100%;
       padding-top: 2px;
       padding-right: 10px;
+      transition: color 0.2s;
       //width: 36px;
 
       &:hover {
         color: red;
       }
     }
+  }
+
+  &-content {
+    overflow-y: auto;
+    max-height: 100%;
+    padding: 24px 24px 0;
   }
 }

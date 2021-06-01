@@ -1,11 +1,9 @@
 ﻿import PropTypes from 'prop-types';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import Immutable, {is} from 'immutable';
+import Immutable from 'immutable';
 import CartItem from './CartItem';
 import './Cart.scss';
-
-// TODO: fix cart overflow
 
 class Cart extends React.Component {
   constructor(props) {

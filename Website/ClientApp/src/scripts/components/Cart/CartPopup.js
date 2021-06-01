@@ -31,8 +31,19 @@ class CartPopup extends React.Component {
     document.removeEventListener('mousedown', this.handleClickOutside);
   }
 
+  setBodyScroll() {
+    const { isShown } = this.props;
+    const body = document.querySelector('body');
+    if (isShown) {
+      body.classList.add('overflow-hidden');
+    } else {
+      body.classList.remove('overflow-hidden');
+    }
+  }
+
   render() {
     const { isShown, hidePopup } = this.props;
+    this.setBodyScroll();
 
     const shownClass = isShown ? ' shown' : '';
 
@@ -45,7 +56,11 @@ class CartPopup extends React.Component {
               &times;
             </button>
           </div>
-          <AppCart hidePopup={hidePopup} />
+          <div className="cart-popup-content">
+            <div>
+              <AppCart hidePopup={hidePopup} />
+            </div>
+          </div>
         </div>
       </div>
     );
