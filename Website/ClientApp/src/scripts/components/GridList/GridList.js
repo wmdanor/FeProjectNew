@@ -9,13 +9,6 @@ import Product from './Product';
 import { CartActions } from '../../actions';
 import './GridList.scss';
 
-const gridStyle = {
-  display: 'grid',
-  gridTemplateColumns: 'repeat(5, 1fr)',
-};
-
-// TODO: grid list styles
-
 class GridList extends React.Component {
   constructor(props) {
     super(props);
@@ -83,12 +76,6 @@ class GridList extends React.Component {
         </li>
       ));
     }
-    const style = {
-      gridColumn: '1/5',
-      border: '1px solid black',
-      padding: '10px',
-      margin: '5px',
-    };
     return <li className="gridlist-item-empty">Empty</li>;
   }
 
