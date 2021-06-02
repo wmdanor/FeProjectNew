@@ -3,7 +3,6 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  width: 960px;
   height: auto;
   max-height: 100%;
   margin: 0 auto;
@@ -13,6 +12,10 @@
   border-radius: 8px;
   background: white;
   box-shadow: 0 8px 40px rgba(0, 0, 0, 0.32);
+
+  @media (min-width: 1024px) {
+    width: 960px;
+  }
 
   &-wrapper {
     position: fixed;

@@ -1,12 +1,10 @@
 ﻿import PropTypes from 'prop-types';
 import * as React from 'react';
 import Immutable from 'immutable';
-import { connect } from 'react-redux';
 import SortBar from './SortBar';
 import SearchBar from './SearchBar';
 import Paginator from './Paginator';
 import Product from './Product';
-import { CartActions } from '../../actions';
 import './GridList.scss';
 
 class GridList extends React.Component {

@@ -10,9 +10,8 @@ const Router = ReactRouterDOM.BrowserRouter;
 const { Route } = ReactRouterDOM;
 const { Switch } = ReactRouterDOM;
 
-// TODO: contacts page
-// TODO: footer
-//
+// TODO: add images to products
+// TODO: create open navbar button on mobile
 
 class App extends React.Component {
   constructor(props) {

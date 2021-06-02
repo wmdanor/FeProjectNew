@@ -4,7 +4,7 @@
   &-list {
     list-style-type: none;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(1, 1fr);
   }
 
   &-item {
@@ -24,9 +24,20 @@
 
   &-bar {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
     padding: 8px 0;
+    gap: 8px;
+
+    @media (min-width: 768px) {
+      flex-direction: row;
+    }
+  }
+
+  @media (min-width: 768px) {
+    &-list {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 
   @media (min-width: 1024px) {

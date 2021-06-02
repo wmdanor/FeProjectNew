@@ -6,6 +6,7 @@ function AppHeader() {
     <>
       <header>
         <iframe
+          style={{ maxWidth: '100%' }}
           width="560"
           height="315"
           src="https://www.youtube.com/embed/AE7QT5anSHY?autoplay=1"

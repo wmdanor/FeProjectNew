@@ -1,13 +1,27 @@
 ﻿import * as React from 'react';
+import './Contacts.scss';
 
 function Contacts() {
   return (
     <>
       <div className="container">
-        <h2>Contacts</h2>
-        <p>Address: lul</p>
+        <div className="contacts">
+          <h2>Contacts</h2>
+          <a className="contacts-item" href="tel:380998887766">
+            +380998887766
+          </a>
+          <a className="contacts-item" href="mailto:example@gmail.com">
+            example@gmail.com
+          </a>
+          <a
+            className="contacts-item"
+            href="https://goo.gl/maps/8ZxfXsiUqJ6XsRqu5"
+          >
+            Route de Crassier 19, CH – 1262, Eysins
+          </a>
+        </div>
       </div>
-      <div className="fluid-container">
+      <div className="fluid-container" style={{ height: '500px' }}>
         <iframe
           title="Our location"
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5781.587254625391!2d32.58331254531559

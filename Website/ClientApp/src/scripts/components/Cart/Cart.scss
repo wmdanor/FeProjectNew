@@ -29,13 +29,18 @@
 
   &-footer {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     justify-content: space-between;
     position: sticky;
     bottom: 0;
     background: white;
-    padding-bottom: 24px;
+    padding: 24px;
+    gap: 20px;
+
+    &-continue {
+      display: none;
+    }
   }
 
   &-receipt {
@@ -63,6 +68,18 @@
     &-checkout {
       margin-left: 24px;
       font-size: 16px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    &-footer {
+      flex-direction: row;
+      padding: 0 0 24px;
+      gap: 0;
+
+      &-continue {
+        display: inherit;
+      }
     }
   }
 }
