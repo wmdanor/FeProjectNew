@@ -11,10 +11,19 @@ const onclick = (e) => {
   console.log(store.getState(), localStorage);
 };
 
+const onclick2 = (e) => {
+  e.preventDefault();
+  console.log('ok');
+  localStorage.clear();
+};
+
 ReactDOM.render(
   <Provider store={store}>
     <button type="button" onClick={onclick}>
       Show state
+    </button>
+    <button type="button" onClick={onclick2}>
+      Clear state
     </button>
     <App />
   </Provider>,

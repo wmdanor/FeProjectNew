@@ -2,7 +2,7 @@
   position: relative;
   padding-top: 30px;
   padding-bottom: 30px;
-  background-color: lightseagreen;
+  background-color: var(--green);
   color: white;
 }
 
@@ -119,7 +119,7 @@
 
 .footer-bottom-part {
   position: relative;
-  background-color: darkblue;
+  background-color: var(--dark-blue);
   color: white;
   padding-top: 110px;
   padding-bottom: 25px;
@@ -140,7 +140,14 @@
 }
 
 .footer-company {
+  width: 200px;
+  height: 200px;
   grid-row: 1 / 3;
+
+  img {
+    width: 200px;
+    height: 200px;
+  }
 }
 
 .office-ltd {

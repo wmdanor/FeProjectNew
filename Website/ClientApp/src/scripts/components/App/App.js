@@ -5,13 +5,12 @@ import AppHeader from './AppHeader';
 import AppFooter from './AppFooter';
 import AppLoader from './AppLoader';
 import { CartPopup } from '../Cart';
+import './index.scss';
+import ScrollToTop from './ScrollToTop';
 
 const Router = ReactRouterDOM.BrowserRouter;
 const { Route } = ReactRouterDOM;
 const { Switch } = ReactRouterDOM;
-
-// TODO: add images to products
-// TODO: create open navbar button on mobile
 
 class App extends React.Component {
   constructor(props) {
@@ -36,6 +35,7 @@ class App extends React.Component {
     return (
       <div className={this.state.didMount ? '' : 'preload'}>
         <Router>
+          <ScrollToTop />
           <AppLoader />
           <CartPopup />
           <AppHeader />

@@ -6,14 +6,21 @@ class Product extends React.Component {
   constructor(props) {
     super(props);
 
-    this.addToCartHandler = (product) => (e) => {
+    const { product } = props;
+
+    this.addToCartHandler = (e) => {
       e.preventDefault();
-      this.props.incrementProduct(product);
+      props.incrementProduct(product);
     };
 
-    this.addMoreHandler = (product) => (e) => {
+    this.addMoreHandler = (e) => {
       e.preventDefault();
-      this.props.incrementProduct(product);
+      props.incrementProduct(product);
+    };
+
+    this.toggleFavoriteHandler = (e) => {
+      e.preventDefault();
+      props.toggleFavorite(product);
     };
   }
 
@@ -30,7 +37,7 @@ class Product extends React.Component {
         <button
           className="button button-green"
           type="button"
-          onClick={this.addMoreHandler(product)}
+          onClick={this.addMoreHandler}
         >
           Add more
         </button>
@@ -40,7 +47,7 @@ class Product extends React.Component {
       <button
         className="button button-green"
         type="button"
-        onClick={this.addToCartHandler(product)}
+        onClick={this.addToCartHandler}
       >
         Add to cart
       </button>
@@ -51,6 +58,13 @@ class Product extends React.Component {
     const { product } = this.props;
     return (
       <div className="product" key={product.id}>
+        <button
+          className={`product-favorite${
+            this.props.isFavorite(product) ? ' favorite' : ''
+          }`}
+          type="button"
+          onClick={this.toggleFavoriteHandler}
+        />
         <img
           className="product-image"
           src={product.imageUrl}
@@ -81,6 +95,8 @@ Product.propTypes = {
   // cartProducts: PropTypes.instanceOf(Immutable.List),
   isInCart: PropTypes.func.isRequired,
   incrementProduct: PropTypes.func.isRequired,
+  isFavorite: PropTypes.func.isRequired,
+  toggleFavorite: PropTypes.func.isRequired,
 };
 
 // const mapStateToProps = (state) => ({

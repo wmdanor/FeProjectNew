@@ -30,6 +30,18 @@ class GridList extends React.Component {
         cartProducts.findIndex((item) => item.product.id === product.id) !== -1
       );
     };
+
+    this.isFavorite = (product) => {
+      const { favoriteProducts } = this.props;
+      return (
+        favoriteProducts.findIndex((item) => item.id === product.id) !== -1
+      );
+    };
+
+    this.scrollRef = React.createRef();
+    this.scrollToComponent = () => {
+      this.scrollRef.current.scrollIntoView();
+    };
   }
 
   componentDidMount() {
@@ -49,11 +61,13 @@ class GridList extends React.Component {
   createItemsList(items) {
     if (items.length) {
       return items.map((item) => (
-        <li className="gridlist-item">
+        <li key={item.id} className="gridlist-item">
           <Product
             product={item}
             isInCart={this.isInCart}
             incrementProduct={this.props.incrementProduct}
+            toggleFavorite={this.props.toggleFavorite}
+            isFavorite={this.isFavorite}
           />
         </li>
       ));
@@ -62,15 +76,16 @@ class GridList extends React.Component {
   }
 
   render() {
-    const { sortProps, searchProps } = this.props;
+    const { sortProps, searchProps, pageSize } = this.props;
 
     return (
-      <div>
+      <div ref={this.scrollRef}>
         <div className="gridlist-bar">
           <SearchBar
             initialData={this.state.afterFilter}
             update={this.updateData}
             searchProps={searchProps}
+            isFavorite={this.isFavorite}
           />
           <SortBar
             data={this.state.afterSearch}
@@ -84,7 +99,8 @@ class GridList extends React.Component {
         <Paginator
           update={this.updateData}
           data={this.state.afterSort}
-          pageSize={4}
+          pageSize={pageSize}
+          scrollToTop={this.scrollToComponent}
         />
       </div>
     );
@@ -93,10 +109,18 @@ class GridList extends React.Component {
 
 GridList.propTypes = {
   dataUrl: PropTypes.string.isRequired,
-  sortProps: PropTypes.object.isRequired,
+  sortProps: PropTypes.arrayOf(
+    PropTypes.shape({
+      property: PropTypes.string.isRequired,
+      text: PropTypes.string,
+    }),
+  ).isRequired,
   searchProps: PropTypes.array.isRequired,
+  pageSize: PropTypes.number.isRequired,
   cartProducts: PropTypes.instanceOf(Immutable.List).isRequired,
   incrementProduct: PropTypes.func.isRequired,
+  favoriteProducts: PropTypes.instanceOf(Immutable.List).isRequired,
+  toggleFavorite: PropTypes.func.isRequired,
 };
 
 export default GridList;

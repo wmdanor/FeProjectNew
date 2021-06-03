@@ -6,6 +6,17 @@ $gray: #9398a3;
 $dark-gray: #51596a;
 $light: #f4f7fb;
 
+:root {
+  --red: #ff3434;
+  --dark-red: red;
+  --green: #009484;
+  --dark-green: #007063;
+  --gray: #9398a3;
+  --dark-gray: #51596a;
+  --light: #f4f7fb;
+  --dark-blue: #112651;
+}
+
 .button {
   display: flex;
   align-items: center;
@@ -73,15 +84,15 @@ $light: #f4f7fb;
 }
 
 .button-gray {
-  background-color: $gray;
-  color: white;
-  border-color: $gray;
+  background-color: $light;
+  color: $dark-gray !important;
+  border-color: $light;
 }
 
 .button-gray:hover {
-  background-color: $dark-gray;
-  color: white;
-  border-color: $dark-gray;
+  background-color: $gray;
+  color: $light !important;
+  border-color: $gray;
 }
 
 .button-gray:focus { /* unknown */

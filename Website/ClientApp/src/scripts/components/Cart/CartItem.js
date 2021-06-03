@@ -6,10 +6,10 @@ function CartItem({ info, quantityChangeHandler, removeHandler }) {
   const { product, quantity } = info;
 
   return (
-    <li className="cart-item">
+    <li key={`cart-item-${product.id}`} className="cart-item">
       <div className="cart-item-body">
         <div className="cart-item-image">
-          <img src={null} alt="Null" />
+          <img src={product.imageUrl} alt={product.name} />
         </div>
         <div className="cart-item-name">{product.name}</div>
         <button
@@ -44,6 +44,7 @@ CartItem.propTypes = {
       id: PropTypes.number.isRequired,
       name: PropTypes.string.isRequired,
       price: PropTypes.number.isRequired,
+      imageUrl: PropTypes.string.isRequired,
     }).isRequired,
     quantity: PropTypes.number.isRequired,
   }).isRequired,

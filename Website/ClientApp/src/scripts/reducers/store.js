@@ -20,7 +20,11 @@ function createImmutableState(object) {
 // convert object to string and store in localStorage
 function saveToLocalStorage(state) {
   try {
-    const serialisedState = JSON.stringify(state);
+    const stateToStore = {
+      cart: state.cart,
+      favorites: state.favorites,
+    };
+    const serialisedState = JSON.stringify(stateToStore);
     localStorage.setItem('persistantState', serialisedState);
     // localStorage.setItem('persistantState', undefined);
   } catch (e) {
@@ -33,6 +37,7 @@ function saveToLocalStorage(state) {
 function loadFromLocalStorage() {
   try {
     const serialisedState = localStorage.getItem('persistantState');
+    console.log(serialisedState)
     if (serialisedState === null) return undefined;
     const parsed = JSON.parse(serialisedState);
     return createImmutableState(parsed);

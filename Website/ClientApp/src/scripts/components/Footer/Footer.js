@@ -1,6 +1,7 @@
 import * as React from 'react';
 import './Footer.scss';
 import { Link } from 'react-router-dom';
+import logoUrl from '../../../images/logo.png';
 
 function Footer() {
   return (
@@ -20,11 +21,7 @@ function Footer() {
         <div className="fluid-container footer-bottom-part">
           <div className="container bottom-footer-content">
             <div className="footer-company">
-              {/* TODO: insert image */}
-              <img
-                src="~/images/logos/logo-footer.svg"
-                alt="FeProject footer logo"
-              />
+              <img src={logoUrl} alt="FeProject footer logo" />
             </div>
 
             <div className="footer-nav">

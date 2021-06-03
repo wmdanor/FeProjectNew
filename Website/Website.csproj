@@ -23,6 +23,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="ClientApp\src\images\products" />
       <Folder Include="ClientApp\src\utils" />
     </ItemGroup>
 

@@ -11,6 +11,7 @@ class SearchBar extends React.Component {
 
     this.state = {
       query: '',
+      isFavorite: false,
     };
 
     this.inputHandler = (e) => {
@@ -18,17 +19,30 @@ class SearchBar extends React.Component {
       this.setState({
         query,
       });
-      this.find(query);
+      this.find();
+    };
+
+    this.checkboxHandler = (e) => {
+      const isFavorite = e.target.checked;
+      this.setState({
+        isFavorite,
+      });
+      this.find();
     };
   }
 
-  find(query) {
+  find() {
+    const { query, isFavorite } = this.state;
+    const lquery = query.toLowerCase();
     const data = this.props.initialData;
     const { searchProps, update } = this.props;
 
     const filter = data.filter((item) => {
       for (let i = 0; i < searchProps.length; i += 1) {
-        if (item[searchProps[i]].toLowerCase().includes(query)) {
+        if (isFavorite && !this.props.isFavorite(item)) {
+          return false;
+        }
+        if (item[searchProps[i]].toLowerCase().includes(lquery)) {
           return true;
         }
       }
@@ -48,16 +62,16 @@ class SearchBar extends React.Component {
   }
 
   componentDidMount() {
-    this.find(this.state.query);
+    this.find();
   }
 
   componentDidUpdate() {
-    this.find(this.state.query);
+    this.find();
   }
 
   render() {
     return (
-      <div>
+      <div className="search-bar">
         <input
           className="search-bar-input"
           type="text"
@@ -65,6 +79,14 @@ class SearchBar extends React.Component {
           placeholder="Enter search query..."
           onChange={this.inputHandler}
         />
+        <label className="search-bar-check">
+          <input
+            type="checkbox"
+            checked={this.state.isFavorite}
+            onChange={this.checkboxHandler}
+          />
+          Favorites
+        </label>
       </div>
     );
   }
@@ -75,6 +97,7 @@ SearchBar.propTypes = {
   // data: PropTypes.array.isRequired,
   update: PropTypes.func.isRequired,
   searchProps: PropTypes.array.isRequired,
+  isFavorite: PropTypes.func.isRequired,
 };
 
 export default SearchBar;

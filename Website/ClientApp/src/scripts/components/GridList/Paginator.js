@@ -15,6 +15,7 @@ class Paginator extends React.Component {
 
     this.goToPageHandler = (page) => (e) => {
       e.preventDefault();
+      this.props.scrollToTop();
       this.setState({
         currentPage: page,
       });
@@ -40,7 +41,7 @@ class Paginator extends React.Component {
     const offset = 2;
 
     if (this.state.currentPage > offset + 3) {
-      pages.push({ i: 1, text: 'First' });
+      pages.push({ i: 1, text: 1 });
       pages.push({ text: '...' });
     }
     if (currentPage === offset + 3) {
@@ -70,7 +71,7 @@ class Paginator extends React.Component {
     }
     if (currentPage + offset + 2 < pagesNumber) {
       pages.push({ text: '...' });
-      pages.push({ i: pagesNumber, text: 'Last' });
+      pages.push({ i: pagesNumber, text: pagesNumber });
     }
 
     return pages;
@@ -105,7 +106,7 @@ class Paginator extends React.Component {
 
   createPaginationButton(item) {
     return item.i ? (
-      <li>
+      <li key={`button-page-${item.i}`}>
         <button
           className="paginator-item"
           type="button"
@@ -116,7 +117,7 @@ class Paginator extends React.Component {
         </button>
       </li>
     ) : (
-      <li>
+      <li key={`page-current-${item.text}`}>
         <span className="paginator-item current">{item.text}</span>
       </li>
     );
@@ -140,6 +141,7 @@ Paginator.propTypes = {
   data: PropTypes.array.isRequired,
   update: PropTypes.func.isRequired,
   pageSize: PropTypes.number,
+  scrollToTop: PropTypes.func.isRequired,
 };
 
 Paginator.defaultProps = {

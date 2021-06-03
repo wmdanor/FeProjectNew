@@ -65,16 +65,26 @@ class SortBar extends React.Component {
 
     return (
       <div className="sort-bar">
-        <select className="sort-bar-select" onChange={(e) => this.setProperty(e.target.value)}>
+        <select
+          className="sort-bar-select"
+          onChange={(e) => this.setProperty(e.target.value)}
+        >
           {sortProps.map((item) => (
-            <option value={item.property}>
+            <option key={`sort-prop-${item.property}`} value={item.property}>
               {item.text ? item.text : item.property}
             </option>
           ))}
         </select>
-        <select className="sort-bar-select" onChange={(e) => this.setDirection(e.target.value)}>
-          <option value="asc">Ascending</option>
-          <option value="desc">Descending</option>
+        <select
+          className="sort-bar-select"
+          onChange={(e) => this.setDirection(e.target.value)}
+        >
+          <option key="sort-direction-asc" value="asc">
+            Ascending
+          </option>
+          <option key="sort-direction-desc" value="desc">
+            Descending
+          </option>
         </select>
       </div>
     );

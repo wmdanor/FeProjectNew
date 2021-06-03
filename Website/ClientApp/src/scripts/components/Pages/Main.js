@@ -1,5 +1,4 @@
 ﻿import * as React from 'react';
-import { GridList, Product } from '../GridList/GridList';
 import AppGridList from '../App/AppGridList';
 
 const sortProps = [
@@ -30,10 +29,10 @@ function Main() {
   return (
     <div className="container">
       <AppGridList
-        dataUrl="/api/products"
+        dataUrl="https://private-669abe-wmdanor.apiary-mock.com/products"
         sortProps={sortProps}
         searchProps={searchProps}
-        itemComponent={Product}
+        pageSize={12}
       />
     </div>
   );

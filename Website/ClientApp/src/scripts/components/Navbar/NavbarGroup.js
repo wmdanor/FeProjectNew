@@ -13,7 +13,7 @@ NavbarGroup.alignModes = {
 
 NavbarGroup.propTypes = {
   children: PropTypes.node,
-  align: PropTypes.instanceOf(NavbarGroup.alignModes),
+  align: PropTypes.string,
 };
 
 NavbarGroup.defaultProps = {

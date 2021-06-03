@@ -8,7 +8,6 @@ const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const TerserWebpackPlugin = require('terser-webpack-plugin');
 // const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const productsMock = require('./mock/products');
 
 const mode = process.env.NODE_ENV;
 const isDevBuild = mode !== 'production';
@@ -53,11 +52,11 @@ const CONFIG = {
     new HtmlReplaceWebpackPlugin([
       {
         pattern:
-          '<script type="text/javascript" src="./scripts/main.js"></script>',
+          '<script type="text/javascript" src="/scripts/main.js"></script>',
         replacement: "",
       },
       {
-        pattern: '<link rel="stylesheet" href="./styles/main.css">',
+        pattern: '<link rel="stylesheet" href="/styles/main.css">',
         replacement: "",
       },
     ]),
@@ -115,24 +114,34 @@ const CONFIG = {
         ],
       },
       {
-        test: /\.(gif|png|jpe?g|svg)$/i,
-        loader: 'file-loader',
-        options: {
-          name: '[path][name].[ext]',
-        },
-      },
-      {
-        test: /\.(woff|woff2|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'file-loader',
-        options: {
-          name: '[path][name].[ext]',
-        },
-      },
-      {
         test: /\.(css|scss)$/,
         use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
       },
-    ],
+    ].concat(isDevBuild ? [
+      {
+        test: /\.(gif|png|jpe?g|svg)$/i,
+        loader: 'url-loader',
+      },
+      {
+        test: /\.(woff|woff2|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
+        loader: 'url-loader',
+      },
+    ] : [
+      {
+        test: /\.(gif|png|jpe?g|svg)$/i,
+        loader: 'file-loader',
+        options: {
+          name: '/images/[name].[ext]',
+        },
+      },
+      {
+        test: /\.(woff|woff2|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
+        loader: 'file-loader',
+        options: {
+          name: '/fonts/[name].[ext]',
+        },
+      },
+    ]),
   },
   devServer: {
     contentBase: path.join(__dirname, "src"),
@@ -142,12 +151,6 @@ const CONFIG = {
     watchContentBase: true,
     noInfo: true,
     proxy: {
-      // js mock proxy
-      '/api/products': {
-        bypass: (req, res) => res.send({
-          data: productsMock.products,
-        }),
-      },
       // ASP.NET Core proxy
       // '/api': {
       //   target: 'http://localhost:5001/api',
